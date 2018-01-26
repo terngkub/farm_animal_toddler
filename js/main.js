@@ -11,19 +11,32 @@ var GameState = {
 	},
 	create: function() {
 
+		//scaling options
 		this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.scale.pageAlignHorizontally = true;
 		this.scale.pageAlignVertically = true;
 
+		//create a sprite for the background
 		this.background = this.game.add.sprite(0, 0, 'background');
 
-		this.pig = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'pig');
-		this.pig.anchor.setTo(0.5);
+		//group for animals
+		var animalData = [
+			{key: 'chicken', text: 'CHICKEN'},
+			{key: 'horse', text: 'HORSE'},
+			{key: 'pig', text: 'PIG'},
+			{key: 'sheep', text: 'SHEEP'}
+		];
 
-		this.pig.inputEnabled = true;
-		this.pig.input.pixelPerfectClick = true;
-		this.pig.events.onInputDown.add(this.animateAnimal, this);
+		this.animals = this.game.add.group();
 
+		var self = this;
+
+		animalData.forEach(function(element) {
+			self.animals.create(200, self.game.world.centerY, element.key);
+		});
+
+
+		//left arrow
 		this.leftArrow = this.game.add.sprite(60, this.game.world.centerY, 'arrow');
 		this.leftArrow.anchor.setTo(0.5);
 		this.leftArrow.scale.x = -1;
@@ -33,6 +46,7 @@ var GameState = {
 		this.leftArrow.input.pixelPerfectClick = true;
 		this.leftArrow.events.onInputDown.add(this.switchAnimal, this);
 
+		//right arrow
 		this.rightArrow = this.game.add.sprite(580, this.game.world.centerY, 'arrow');
 		this.rightArrow.anchor.setTo(0.5);
 		this.rightArrow.customParams = {direction: 1};
