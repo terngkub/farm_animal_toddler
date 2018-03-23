@@ -1,4 +1,4 @@
-#farm_animals_toddlers
+# farm_animals_toddlers
 My first Phaser game
 
 ### About this project
